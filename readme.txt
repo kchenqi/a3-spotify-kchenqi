@@ -1,4 +1,4 @@
---Readme document for *YOUR NAME*, *YOUR_EMAIL@uci.edu*--
+--Readme document for *Katelyn Chenqi*, *kchenqi@uci.edu*--
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
 
@@ -28,4 +28,4 @@
 
 
 6. Is there anything special we need to know in order to run your code?
-
+I am in group 47 as just one person, however I accidentally cloned the repository with the team name kchenqi.

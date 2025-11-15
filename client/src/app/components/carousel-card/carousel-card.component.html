@@ -1,7 +1,14 @@
-<!--TODO: bind href to the appropriate local URL for the album/artist/song.-->
-<a [routerLink]="resource['artists'] ? ['/album', resource.id] : resource['album'] ? ['/track', resource.id] : ['/artist', resource.id]">
-	<div class="carousel-caption d-none d-md-block">
-		<!--TODO: populate h5 with the album/artist/song name-->
-		<h5>{{ resource.name }}</h5>
-	</div>
-	</a>
+<div class="carousel-item-content text-center">
+  <img [src]="resource.imageURL" class="d-block w-100" alt="image">
+  <div class="carousel-caption d-none d-md-block">
+    <h5>{{ resource.name }}</h5>
+    <p *ngIf="!resource['artists'] && resource['followersStr']">
+      {{ resource['followersStr'] }} followers
+    </p>
+    <p *ngIf="resource['artists']">
+      <ng-container *ngFor="let a of resource['artists']; let last = last">
+        {{ a.name }}<span *ngIf="!last">, </span>
+      </ng-container>
+    </p>
+  </div>
+</div>

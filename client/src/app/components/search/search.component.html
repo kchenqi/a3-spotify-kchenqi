@@ -3,9 +3,7 @@
 <input type="text" class="form-control mb-2" [(ngModel)]="searchString" placeholder="Search...">
 <!--TODO: bind select's model to searchCategory-->
 <select class="form-select mb-2" [(ngModel)]="searchCategory">
-	<option *ngFor="let category of searchCategories" [value]="category">
-		{{ category | titlecase }}
-	</option>
+	<option *ngFor="let category of searchCategories" [value]="category">{{ category | titlecase }}</option>
 	<!--TODO: loop over searchCategories to create dropdown options-->
 	<!--populate body and text value https://www.w3schools.com/tags/att_option_selected.asp-->
 </select>
@@ -14,6 +12,13 @@
 <!--TODO: Display a carousel component if searching for an artist or album. Bind carousel's resources and give it a static carouselId.-->
 <!--TODO: Display a track-list component if searching for a track. Bind track-list's tracks.-->
 
-<app-carousel *ngIf="resources && (searchCategory === 'artist' || searchCategory === 'album')" [resources]="resources" [carouselId]="'searchCarousel'"></app-carousel>
+<app-carousel *ngIf="resources && (searchCategory === 'artist' || searchCategory === 'album')" 
+              [resources]="resources" 
+              [carouselId]="'searchCarousel'">
+</app-carousel>
 
-<app-track-list *ngIf="resources && searchCategory === 'track'" [tracks]="resources" [hideArtist]="false" [hideAlbum]="false"></app-track-list>
+<app-track-list *ngIf="resources && searchCategory === 'track'" 
+                [tracks]="resources" 
+                [hideArtist]="false" 
+                [hideAlbum]="false">
+</app-track-list>

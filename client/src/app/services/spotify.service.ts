@@ -6,6 +6,7 @@ import { AlbumData } from '../data/album-data';
 import { TrackData } from '../data/track-data';
 import { ResourceData } from '../data/resource-data';
 import { ProfileData } from '../data/profile-data';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -41,20 +42,23 @@ export class SpotifyService {
     //Make sure you're encoding the resource with encodeURIComponent().
     //Depending on the category (artist, track, album), return an array of that type of data.
     //JavaScript's "map" function might be useful for this, but there are other ways of building the array.
-    const encodedResource = encodeURIComponent(resource);
-    return this.sendRequestToExpress(`/search/${category}/${encodedResource}`)
-    .then((data) => {
-      if (category === "artist") {
-        return data.artists.items.map((item:any) => new ArtistData(item));
-      } else if (category === "album") {
-        return data.albums.items.map((item:any) => new AlbumData(item));
-      } else if (category === "track") {
-        return data.tracks.items.map((item:any) => new TrackData(item));
-      }
-      return [];
+    const uri = `${this.expressBaseUrl}/search/${category}/${encodeURIComponent(resource)}`;
+
+
+    return firstValueFrom(this.http.get<any>(uri))
+        .then(data => {
+          if (category === 'artist' && data.artists) {
+            return data.artists.items.map(i => new ArtistData(i));
+          }
+          if (category === 'album' && data.albums) {
+            return data.albums.items.map(i => new AlbumData(i));
+          }
+          if (category === 'track' && data.tracks) {
+            return data.tracks.items.map(i => new TrackData(i));
+          }
+          return [];
     });
-    return null as any;
-  }
+    }
 
   getArtist(artistId:string):Promise<ArtistData> {
     //TODO: use the artist endpoint to make a request to express.
